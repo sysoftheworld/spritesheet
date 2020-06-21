@@ -2,8 +2,65 @@ package spritesheet
 
 import (
 	"image"
+	"image/color"
+	"math/rand"
 	"testing"
+	"time"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+func TestEncode(t *testing.T) {
+	tests := []struct {
+		name          string
+		numOfImgs     int
+		width, height int // per image
+		opts          *EncodeOpts
+		err           error
+	}{
+		{name: "no images", numOfImgs: 0, width: 10, height: 10, opts: &EncodeOpts{ImgsPerRow: 5}, err: ErrNoImages},
+		{name: "100", numOfImgs: 100, width: 10, height: 10, opts: &EncodeOpts{ImgsPerRow: 5}, err: nil},
+		{name: "100x100", numOfImgs: 10, width: 100, height: 100, opts: &EncodeOpts{ImgsPerRow: 2}, err: nil},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			var (
+				imgs       = make([]image.Image, 0, test.numOfImgs)
+				r, g, b, a = uint8(rand.Intn(255)), uint8(rand.Intn(255)), uint8(rand.Intn(255)), uint8(rand.Intn(255))
+				color      = color.RGBA{R: r, G: g, B: b, A: a}
+				point      = image.Pt(rand.Intn(test.width), rand.Intn(test.height))
+				img        = buildTestImage(test.width, test.height, color, point)
+			)
+			for i := 0; i < test.numOfImgs; i++ {
+				imgs = append(imgs, img)
+			}
+			sheet, err := Encode(imgs, test.opts)
+			if err != test.err {
+				t.Errorf("got %v; wanted %v", err, test.err)
+				return
+			}
+			if err != nil {
+				return
+			}
+
+			var row, column int
+			for i := 0; i < test.numOfImgs; i++ {
+				c := sheet.At(point.X+(test.width*column), point.Y+(test.height*row))
+				if c != color {
+					t.Errorf("got %v; wanted %v at point %v at row %d column %d", c, color, point, row, column)
+				}
+				column++
+				if column > test.opts.ImgsPerRow-1 {
+					row++
+					column = 0
+				}
+			}
+		})
+	}
+}
 
 func TestSheetDimensions(t *testing.T) {
 	tests := []struct {
