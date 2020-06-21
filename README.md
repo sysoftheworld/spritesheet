@@ -35,5 +35,22 @@ type DecodeOpts struct {
 func Decode(in image.Image, opts *DecodeOpts) ([]image.Image, error) {
 ```
 
+## Scripts
+
+In the scripts you can find a bash script for help creating spritesheets out of video. It uses ffmpeg and the cli found in
+cmd folder to do this. 
+
+options:
+
+-i - input video file
+-ss - where to seek in the video HH:MM:SS.MMM format
+-vf - fps to extract images (see https://trac.ffmpeg.org/wiki/Create%20a%20thumbnail%20image%20every%20X%20seconds%20of%20the%20video)
+-sl - sheet size: how many images do you want per sheet
+
+Example to create a thumbnail every two seconds. See results in scripts folder. 
+```bash
+./scripts/video-thumbnails.sh -i oceans.mp4 -ss 00:00:00.000 -vf 1/2
+```
+
 ## TODO
 - Finish the cli

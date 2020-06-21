@@ -128,6 +128,7 @@ func images(in []string) ([]image.Image, error) {
 			return nil, err
 		}
 		out = append(out, image)
+		file.Close()
 	}
 	return out, nil
 }
