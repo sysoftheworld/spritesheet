@@ -36,6 +36,4 @@ func Decode(in image.Image, opts *DecodeOpts) ([]image.Image, error) {
 ```
 
 ## TODO
-- More testing
-- Benchmarking to discover room for improvment
 - Finish the cli
