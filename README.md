@@ -47,10 +47,13 @@ options:
 - -vf - fps to extract images (see https://trac.ffmpeg.org/wiki/Create%20a%20thumbnail%20image%20every%20X%20seconds%20of%20the%20video)
 - -sl - sheet size: how many images do you want per sheet
 
-Example to create a thumbnail every two seconds. See results in scripts folder. 
+Example to create a thumbnail every two seconds.  
 ```bash
 ./scripts/video-thumbnails.sh -i oceans.mp4 -ss 00:00:00.000 -vf 1/2
 ```
+![sheet_0](https://github.com/Khalieb/spritesheet/blob/master/scripts/sheet_0.jpeg)
+![sheet_1](https://github.com/Khalieb/spritesheet/blob/master/scripts/sheet_1.jpeg)
+
 
 ## TODO
 - Finish the cli
