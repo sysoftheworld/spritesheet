@@ -1,3 +1,3 @@
 module github.com/khalieb/spritesheet
 
-go 1.18
+go 1.25
