@@ -14,7 +14,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/khalieb/spritesheet"
+	"github.com/sysoftheworld/spritesheet"
 )
 
 var (
