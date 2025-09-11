@@ -1,3 +1,3 @@
-module github.com/khalieb/spritesheet
+module github.com/sysoftheworld/spritesheet
 
 go 1.25
